@@ -1,0 +1,21 @@
+/etc/profiles/per-user/$USER/bin/fish
+
+#shell install
+tide configure --auto \
+    --style=Rainbow \
+    --prompt_colors='True color' \
+    --show_time='24-hour format' \
+    --rainbow_prompt_separators=Round \
+    --powerline_prompt_heads=Round \
+    --powerline_prompt_tails=Round \
+    --powerline_prompt_style='Two lines, character' \
+    --prompt_connection=Disconnected \
+    --powerline_right_prompt_frame=No \
+    --prompt_spacing=Sparse \
+    --icons='Many icons' \
+    --transient=No
+
+#epiclang install
+git clone https://github.com/lukas-sgx/Epifaster.git
+cd Epifaster
+./setup.sh
