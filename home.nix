@@ -1,7 +1,7 @@
 { config, pkgs, zen-browser, system, lib, inputs, ... }:
 {
-    home.username = "user";
-    home.homeDirectory = "/home/user";
+    home.username = "user";                 # Change "user" by your own user 
+    home.homeDirectory = "/home/user";      # Change "user" by your own user 
     home.stateVersion = "26.05";
 
     home.packages = (with pkgs; [
@@ -25,8 +25,8 @@
     programs.git = {
         enable = true;
         settings = {
-            user.name = "user";
-            user.email = "user@email.com";
+            user.name = "user";         # Change "user" by your own user 
+            user.email = "user@email.com";  # Change by your email github
             init.defaultBranch = "main";
             pull.rebase = false;
         };
