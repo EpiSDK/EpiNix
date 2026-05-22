@@ -7,18 +7,26 @@
 
     nixpkgs.config.allowUnfree = true;
 
+    # Boot section
+
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
     boot.loader.systemd-boot.configurationLimit = 2;
     boot.kernelPackages = pkgs.linuxPackages;
 
+    # Network Section
+
     networking.hostName = "nixos";
     networking.networkmanager.enable = true;
+
+    # Bluetooth Section 
 
     hardware.bluetooth.enable = true;
     services.blueman.enable = true;
 
     services.fprintd.enable = true;
+    
+    # Security Section
 
     security.pam.services = {
         login.fprintAuth = lib.mkForce true;
@@ -73,7 +81,7 @@
 
     users.users.user = {
         isNormalUser = true;
-        description = "User";
+        description = "User"; # Change "User" by your own user 
         extraGroups = [ "wheel" "networkmanager" "docker" ];
         shell = pkgs.fish;
     };
