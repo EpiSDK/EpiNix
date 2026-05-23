@@ -1,26 +1,35 @@
+# This file its for user (not for all user in a pc)
+
 { config, pkgs, zen-browser, system, lib, inputs, ... }:
 {
+    # User Setting Section
+
     home.username = "user";                 # Change "user" by your own user 
     home.homeDirectory = "/home/user";      # Change "user" by your own user 
     home.stateVersion = "26.05";
 
+    # User packages Section : This section is for all packages for user (command, app)
+    # You can add any packages available. See "https://search.nixos.org/packages?query="
+
     home.packages = (with pkgs; [
-        vscode
-        zed-editor
+        vscode              # Best IDE for code
+        zed-editor          # Other IDE for code (optional)
         
-        go
+        go                  # Go packages for Go devellopement
         gh
-        openvpn
+        openvpn             # For vpn
 
-        rustup
+        rustup              # For rust devellopement
 
-        eza
-        fzf
+        eza                 # ls (on rust language)
+        fzf                 
         zoxide
-        microfetch
+        microfetch          # Fastfetch but micro
     ]) ++ [
-        zen-browser.packages.${system}.default
+        zen-browser.packages.${system}.default  # Zen brower for internet explorer
     ];
+
+    # Git Section
 
     programs.git = {
         enable = true;
@@ -31,6 +40,8 @@
             pull.rebase = false;
         };
     };
+
+    # Fish Section
 
     programs.fish = {
         enable = true;
@@ -158,13 +169,19 @@
         '';
     };
 
+    # SSH section
+
     programs.ssh = {
         enable = true;
         enableDefaultConfig = false;
         matchBlocks."*".addKeysToAgent = "yes";
     };
 
+    # Home manager Section
+
     programs.home-manager.enable = true;
+
+    # Directories Section
 
     xdg.userDirs = {
         enable = true;
