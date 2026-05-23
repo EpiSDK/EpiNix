@@ -50,4 +50,25 @@ After, git clone this repo
 git clone https://github.com/EpiSDK/EpiNix.git
 ```
 
-2. After clone lets modify configuration for your user and see who work Nix
+2. After clone lets modify configuration for your user and see who work NixOS.
+
+*  Follow all comment for change all the configuration for user, 
+*  Add other packages for application 
+
+3. Finish ? The configuration is alredy to use. 
+
+Use the following commande for copy the configuration on the NixOs emplacement
+
+```bash
+cp config.nix /etc/nixos
+cp home.nix /etc/nixos
+cp flake.nix /etc/nixos
+```
+
+4. Final step : now run the final command and enjoy ! Its finish
+
+```bash
+sudo nixos-rebuild switch --flake /etc/nixos#nixos
+```
+
+All app are install and you can use
