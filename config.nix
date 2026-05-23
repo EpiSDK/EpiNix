@@ -1,3 +1,5 @@
+# Main configuration file. Use for all user
+
 { config, pkgs, lib, inputs, ... }:
 
 {
@@ -35,6 +37,8 @@
         gdm-fingerprint.fprintAuth = true;
     };
 
+    # Hardware Section
+
     hardware.graphics = {
         enable = true;
         extraPackages = with pkgs; [
@@ -48,13 +52,17 @@
     services.thermald.enable = true;
     powerManagement.enable = true;
 
+    # Time Section
+
     time.timeZone = "Europe/Paris";
     i18n.defaultLocale = "fr_FR.UTF-8";
     console.keyMap = "fr";
 
+    # Gnome Section
+
     services.displayManager.gdm.enable = true;
     services.desktopManager.gnome.enable = true;
-    services.displayManager.autoLogin.user = "User";
+    services.displayManager.autoLogin.user = "User"; # Change "user" by your user
     services.xserver.xkb = {
         layout = "fr";
         variant = "";
@@ -69,6 +77,8 @@
         pulse.enable = true;
     };
 
+    # Open SSH Section
+
     services.openssh = {
         enable = true;
         settings = {
@@ -79,9 +89,9 @@
 
     programs.fish.enable = true;
 
-    users.users.user = {
+    users.users.user = {            # Change "user" by your user
         isNormalUser = true;
-        description = "User"; # Change "User" by your own user 
+        description = "User";       # Change "User" by your own user 
         extraGroups = [ "wheel" "networkmanager" "docker" ];
         shell = pkgs.fish;
     };
@@ -94,20 +104,26 @@
         SystemAccount=true
     '';
 
-    environment.systemPackages = with pkgs; [
-        git
-        curl
-        vim
-        htop
-        python3
 
-        llvmPackages_20.clang
-        llvmPackages_20.llvm
-        gcovr
-        criterion
-        valgrind
-        gnumake42
+    # Package Section : This section its for all packages for all user in your pc
+    # You can add your own packages. See "https://search.nixos.org/packages?query=" for all packages in Nix 
+
+    environment.systemPackages = with pkgs; [
+        git                         # For github
+        curl                        # For Web Request
+        vim                         # Terminal text editor
+        htop                        # Top but better
+        python3                     # Python language
+
+        llvmPackages_20.clang       # Clang for c compilateur
+        llvmPackages_20.llvm        # Lib requirement
+        gcovr                       # For coverage code
+        criterion                   # Again for coverage code
+        valgrind                    # See leak memory and error on C code
+        gnumake42                   # Just make
     ];
+
+    # Docker Setting Section
 
     virtualisation.docker.enable = true;
 
@@ -123,6 +139,8 @@
         dates = "weekly";
         options = "--delete-older-than 7d";
     };
+
+    # Font Section
 
     fonts.packages = with pkgs; [
         nerd-fonts.jetbrains-mono
