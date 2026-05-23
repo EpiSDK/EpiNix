@@ -86,3 +86,12 @@ Follow the comments to add other apps/tools:
 * `config.nix` for system-wide packages
 
 ## Repository tree
+
+```text
+.
+├── README.md
+├── config.nix
+├── flake.nix
+├── home.nix
+└── setup.sh
+```
