@@ -31,7 +31,7 @@ Applications included:
 
 ## How to use?
 
-### Requirement
+### Requirements
 
 * NixOS installed
 * Working network connection (Wi-Fi or Ethernet)
@@ -71,15 +71,15 @@ sudo nixos-rebuild switch --flake /etc/nixos#nixos
 
 All applications are installed and ready to use.
 
-## More ?
+## More?
 
-### Use Hyprland ?
+### Use Hyprland?
 
 This configuration enables GNOME as the desktop environment, but NixOS can also enable Hyprland if you want a more customized setup.
 
 For an example Hyprland configuration, see: https://github.com/Tadomika-Ari/My-NixOs-Configuration#
 
-### Other packages ?
+### Other packages?
 
 Follow the comments to add other apps/tools:
 * `home.nix` for user-specific packages
