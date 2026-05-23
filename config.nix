@@ -1,4 +1,4 @@
-# Main configuration file. Use for all user
+# Main configuration file (system-wide). Applies to all users.
 
 { config, pkgs, lib, inputs, ... }:
 
@@ -21,7 +21,7 @@
     networking.hostName = "nixos";
     networking.networkmanager.enable = true;
 
-    # Bluetooth Section 
+    # Bluetooth section
 
     hardware.bluetooth.enable = true;
     services.blueman.enable = true;
@@ -62,7 +62,7 @@
 
     services.displayManager.gdm.enable = true;
     services.desktopManager.gnome.enable = true;
-    services.displayManager.autoLogin.user = "User"; # Change "user" by your user
+    services.displayManager.autoLogin.user = "User"; # Replace "User" with your username
     services.xserver.xkb = {
         layout = "fr";
         variant = "";
@@ -89,9 +89,9 @@
 
     programs.fish.enable = true;
 
-    users.users.user = {            # Change "user" by your user
+    users.users.user = {            # Rename "user" to your username
         isNormalUser = true;
-        description = "User";       # Change "User" by your own user 
+        description = "User";       # Replace "User" with your display name
         extraGroups = [ "wheel" "networkmanager" "docker" ];
         shell = pkgs.fish;
     };
@@ -105,22 +105,22 @@
     '';
 
 
-    # Package Section : This section its for all packages for all user in your pc
-    # You can add your own packages. See "https://search.nixos.org/packages?query=" for all packages in Nix 
+    # Packages: system-wide packages installed for all users on this machine.
+    # You can add your own packages. See "https://search.nixos.org/packages?query=" for available packages.
 
     environment.systemPackages = with pkgs; [
-        git                         # For github
-        curl                        # For Web Request
+        git                         # Git
+        curl                        # Web requests
         vim                         # Terminal text editor
-        htop                        # Top but better
-        python3                     # Python language
+        htop                        # Top, but better
+        python3                     # Python
 
-        llvmPackages_20.clang       # Clang for c compilateur
-        llvmPackages_20.llvm        # Lib requirement
-        gcovr                       # For coverage code
-        criterion                   # Again for coverage code
-        valgrind                    # See leak memory and error on C code
-        gnumake42                   # Just make
+        llvmPackages_20.clang       # Clang C/C++ compiler
+        llvmPackages_20.llvm        # LLVM libraries
+        gcovr                       # Coverage reports
+        criterion                   # C unit testing framework
+        valgrind                    # Memory debugging for C/C++
+        gnumake42                   # GNU Make
     ];
 
     # Docker Setting Section

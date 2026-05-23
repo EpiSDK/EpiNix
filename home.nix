@@ -1,32 +1,32 @@
-# This file its for user (not for all user in a pc)
+# User configuration file (per-user, not system-wide).
 
 { config, pkgs, zen-browser, system, lib, inputs, ... }:
 {
     # User Setting Section
 
-    home.username = "user";                 # Change "user" by your own user 
-    home.homeDirectory = "/home/user";      # Change "user" by your own user 
+    home.username = "user";                 # Replace "user" with your username
+    home.homeDirectory = "/home/user";      # Replace "user" with your home directory
     home.stateVersion = "26.05";
 
-    # User packages Section : This section is for all packages for user (command, app)
-    # You can add any packages available. See "https://search.nixos.org/packages?query="
+    # User packages: packages installed for this user (CLI tools and apps).
+    # You can add any available packages. See "https://search.nixos.org/packages?query="
 
     home.packages = (with pkgs; [
         vscode              # Best IDE for code
-        zed-editor          # Other IDE for code (optional)
+        zed-editor          # Alternative editor (optional)
         
-        go                  # Go packages for Go devellopement
+        go                  # Go toolchain
         gh
-        openvpn             # For vpn
+        openvpn             # VPN
 
-        rustup              # For rust devellopement
+        rustup              # Rust toolchain manager
 
-        eza                 # ls (on rust language)
+        eza                 # ls replacement (written in Rust)
         fzf                 
         zoxide
-        microfetch          # Fastfetch but micro
+        microfetch          # Fastfetch-like, but minimal
     ]) ++ [
-        zen-browser.packages.${system}.default  # Zen brower for internet explorer
+        zen-browser.packages.${system}.default  # Zen Browser (web browser)
     ];
 
     # Git Section
@@ -34,8 +34,8 @@
     programs.git = {
         enable = true;
         settings = {
-            user.name = "user";         # Change "user" by your own user 
-            user.email = "user@email.com";  # Change by your email github
+            user.name = "user";         # Replace "user" with your name
+            user.email = "user@email.com";  # Replace with your GitHub email address
             init.defaultBranch = "main";
             pull.rebase = false;
         };
