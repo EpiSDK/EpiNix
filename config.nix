@@ -1,3 +1,5 @@
+# Main configuration file (system-wide). Applies to all users.
+
 { config, pkgs, lib, inputs, ... }:
 
 {
@@ -7,18 +9,26 @@
 
     nixpkgs.config.allowUnfree = true;
 
+    # Boot section
+
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
     boot.loader.systemd-boot.configurationLimit = 2;
     boot.kernelPackages = pkgs.linuxPackages;
 
+    # Network Section
+
     networking.hostName = "nixos";
     networking.networkmanager.enable = true;
+
+    # Bluetooth section
 
     hardware.bluetooth.enable = true;
     services.blueman.enable = true;
 
     services.fprintd.enable = true;
+    
+    # Security Section
 
     security.pam.services = {
         login.fprintAuth = lib.mkForce true;
@@ -26,6 +36,8 @@
         polkit-1.fprintAuth = true;
         gdm-fingerprint.fprintAuth = true;
     };
+
+    # Hardware Section
 
     hardware.graphics = {
         enable = true;
@@ -40,13 +52,17 @@
     services.thermald.enable = true;
     powerManagement.enable = true;
 
+    # Time Section
+
     time.timeZone = "Europe/Paris";
     i18n.defaultLocale = "fr_FR.UTF-8";
     console.keyMap = "fr";
 
+    # Gnome Section
+
     services.displayManager.gdm.enable = true;
     services.desktopManager.gnome.enable = true;
-    services.displayManager.autoLogin.user = "User";
+    services.displayManager.autoLogin.user = "User"; # Replace "User" with your username
     services.xserver.xkb = {
         layout = "fr";
         variant = "";
@@ -61,6 +77,8 @@
         pulse.enable = true;
     };
 
+    # Open SSH Section
+
     services.openssh = {
         enable = true;
         settings = {
@@ -71,9 +89,9 @@
 
     programs.fish.enable = true;
 
-    users.users.user = {
+    users.users.user = {            # Rename "user" to your username
         isNormalUser = true;
-        description = "User";
+        description = "User";       # Replace "User" with your display name
         extraGroups = [ "wheel" "networkmanager" "docker" ];
         shell = pkgs.fish;
     };
@@ -86,20 +104,26 @@
         SystemAccount=true
     '';
 
-    environment.systemPackages = with pkgs; [
-        git
-        curl
-        vim
-        htop
-        python3
 
-        llvmPackages_20.clang
-        llvmPackages_20.llvm
-        gcovr
-        criterion
-        valgrind
-        gnumake42
+    # Packages: system-wide packages installed for all users on this machine.
+    # You can add your own packages. See "https://search.nixos.org/packages?query=" for available packages.
+
+    environment.systemPackages = with pkgs; [
+        git                         # Git
+        curl                        # Web requests
+        vim                         # Terminal text editor
+        htop                        # Top, but better
+        python3                     # Python
+
+        llvmPackages_20.clang       # Clang C/C++ compiler
+        llvmPackages_20.llvm        # LLVM libraries
+        gcovr                       # Coverage reports
+        criterion                   # C unit testing framework
+        valgrind                    # Memory debugging for C/C++
+        gnumake42                   # GNU Make
     ];
+
+    # Docker Setting Section
 
     virtualisation.docker.enable = true;
 
@@ -115,6 +139,8 @@
         dates = "weekly";
         options = "--delete-older-than 7d";
     };
+
+    # Font Section
 
     fonts.packages = with pkgs; [
         nerd-fonts.jetbrains-mono

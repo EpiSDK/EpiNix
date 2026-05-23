@@ -1,36 +1,47 @@
+# User configuration file (per-user, not system-wide).
+
 { config, pkgs, zen-browser, system, lib, inputs, ... }:
 {
-    home.username = "user";
-    home.homeDirectory = "/home/user";
+    # User Setting Section
+
+    home.username = "user";                 # Replace "user" with your username
+    home.homeDirectory = "/home/user";      # Replace "user" with your home directory
     home.stateVersion = "26.05";
 
+    # User packages: packages installed for this user (CLI tools and apps).
+    # You can add any available packages. See "https://search.nixos.org/packages?query="
+
     home.packages = (with pkgs; [
-        vscode
-        zed-editor
+        vscode              # IDE/editor
+        zed-editor          # Alternative editor (optional)
         
-        go
+        go                  # Go toolchain
         gh
-        openvpn
+        openvpn             # VPN
 
-        rustup
+        rustup              # Rust toolchain manager
 
-        eza
-        fzf
+        eza                 # ls replacement (written in Rust)
+        fzf                 
         zoxide
-        microfetch
+        microfetch          # Fastfetch-like, but minimal
     ]) ++ [
-        zen-browser.packages.${system}.default
+        zen-browser.packages.${system}.default  # Zen Browser (web browser)
     ];
+
+    # Git Section
 
     programs.git = {
         enable = true;
         settings = {
-            user.name = "user";
-            user.email = "user@email.com";
+            user.name = "user";         # Replace "user" with your name
+            user.email = "user@email.com";  # Replace with your GitHub email address
             init.defaultBranch = "main";
             pull.rebase = false;
         };
     };
+
+    # Fish Section
 
     programs.fish = {
         enable = true;
@@ -158,13 +169,19 @@
         '';
     };
 
+    # SSH section
+
     programs.ssh = {
         enable = true;
         enableDefaultConfig = false;
         matchBlocks."*".addKeysToAgent = "yes";
     };
 
+    # Home manager Section
+
     programs.home-manager.enable = true;
+
+    # Directories Section
 
     xdg.userDirs = {
         enable = true;
