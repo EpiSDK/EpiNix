@@ -12,7 +12,7 @@
     # You can add any available packages. See "https://search.nixos.org/packages?query="
 
     home.packages = (with pkgs; [
-        vscode              # Best IDE for code
+        vscode              # IDE/editor
         zed-editor          # Alternative editor (optional)
         
         go                  # Go toolchain
